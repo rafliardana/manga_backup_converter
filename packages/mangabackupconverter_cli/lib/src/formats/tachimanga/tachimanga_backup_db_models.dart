@@ -281,7 +281,11 @@ class TachimangaBackupManga
       status: status,
       thumbnailUrl: thumbnailUrl ?? '',
       source: source,
-      updateStrategy: TachiUpdateStrategyMapper.fromValue(int.tryParse(updateStrategy) ?? updateStrategy),
+      updateStrategy: (int.tryParse(updateStrategy) != null) 
+          ? TachiUpdateStrategyMapper.fromValue(int.parse(updateStrategy))
+          : (updateStrategy == 'ALWAYS_UPDATE' 
+              ? TachiUpdateStrategy.alwaysUpdate 
+              : TachiUpdateStrategy.onlyFetchOnce),
       dateAdded: DateTime.now().millisecondsSinceEpoch,
       viewer: 1,
       viewerFlags: 1,

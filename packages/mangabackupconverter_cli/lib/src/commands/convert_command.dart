@@ -40,7 +40,7 @@ class ConvertCommand extends Command<void> {
         'output-format',
         abbr: 'f',
         help: 'The output backup format.',
-        allowed: _outputFormats.map((BackupFormat f) => f.alias).toList(),
+        allowed: _aliases,
       )
       ..addOption(
         'input-format',
@@ -149,12 +149,9 @@ class ConvertCommand extends Command<void> {
       outputFormat = BackupFormat.byName(outputFormatName);
     }
 
-    if (outputFormat.backupBuilder is UnimplementedBackupBuilder) {
-      throw UsageException(
-        '${outputFormat.alias} is not yet supported as a target format.',
-        usage,
-      );
-    }
+    // We can't determine strategy without resolvedInputFormat, which is resolved later.
+    // Let's just remove the strict check here and let the pipeline handle unsupported builders.
+    // We'll throw later if the strategy is Migration and it lacks a builder.
 
     // --- Input format ---
     final String backupFileExtension = p.extension(backupFile.uri.toString());

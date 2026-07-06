@@ -5,8 +5,11 @@ import 'package:native_toolchain_c/native_toolchain_c.dart';
 void main(List<String> args) async {
   await build(args, (input, output) async {
     if (!input.config.buildCodeAssets) return;
-
     final CodeConfig codeConfig = input.config.code;
+
+    if (codeConfig.targetOS == OS.windows) {
+      return;
+    }
 
     // NDK clang 18 crashes on armv7 with musttail attribute:
     // "failed to perform tail call elimination on a call site marked musttail"

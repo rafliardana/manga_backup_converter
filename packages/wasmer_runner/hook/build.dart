@@ -51,6 +51,10 @@ void main(List<String> args) async {
     if (!input.config.buildCodeAssets) return;
 
     final CodeConfig codeConfig = input.config.code;
+    if (codeConfig.targetOS == OS.windows) {
+      return;
+    }
+
     final (OS, Architecture) key = (codeConfig.targetOS, codeConfig.targetArchitecture);
     final ({String archive, String libPath, String sha256})? info = _downloadInfo[key];
 

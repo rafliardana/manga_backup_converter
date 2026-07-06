@@ -19,7 +19,7 @@ void main(List<String> args) async {
     final CodeConfig codeConfig = input.config.code;
 
     // iOS/macOS use SwiftSoup, web uses TeaVM — nothing to build.
-    if (codeConfig.targetOS == OS.iOS || codeConfig.targetOS == OS.macOS) {
+    if (codeConfig.targetOS == OS.iOS || codeConfig.targetOS == OS.macOS || codeConfig.targetOS == OS.windows) {
       return;
     }
 

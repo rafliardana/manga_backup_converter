@@ -116,13 +116,13 @@ class TachiBackup with TachiBackupMappable implements ConvertableBackup {
 
   @override
   Future<Uint8List> toData() async {
-    final String json = toJson();
+    final Map<String, dynamic> jsonMap = toMap();
     final Uint8List backupBytes = switch (format) {
-      Mihon() => mihon.Backup.fromJson(json).writeToBuffer(),
-      TachiSy() => sy.Backup.fromJson(json).writeToBuffer(),
-      TachiJ2k() => j2k.Backup.fromJson(json).writeToBuffer(),
-      TachiYokai() => yokai.Backup.fromJson(json).writeToBuffer(),
-      TachiNeko() => neko.Backup.fromJson(json).writeToBuffer(),
+      Mihon() => (mihon.Backup.create()..mergeFromProto3Json(jsonMap, ignoreUnknownFields: true)).writeToBuffer(),
+      TachiSy() => (sy.Backup.create()..mergeFromProto3Json(jsonMap, ignoreUnknownFields: true)).writeToBuffer(),
+      TachiJ2k() => (j2k.Backup.create()..mergeFromProto3Json(jsonMap, ignoreUnknownFields: true)).writeToBuffer(),
+      TachiYokai() => (yokai.Backup.create()..mergeFromProto3Json(jsonMap, ignoreUnknownFields: true)).writeToBuffer(),
+      TachiNeko() => (neko.Backup.create()..mergeFromProto3Json(jsonMap, ignoreUnknownFields: true)).writeToBuffer(),
     };
     return const GZipEncoder().encodeBytes(backupBytes);
   }
