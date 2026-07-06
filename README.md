@@ -1,8 +1,5 @@
 # Manga Backup Converter <!-- omit in toc -->
 
-[![latest release](https://img.shields.io/github/release/rafliardana/manga_backup_converter.svg?maxAge=3600&label=download)](https://github.com/rafliardana/manga_backup_converter/releases)
-[![coverage](https://img.shields.io/codecov/c/github/rafliardana/manga_backup_converter)](https://app.codecov.io/gh/rafliardana/manga_backup_converter)
-
 Convert manga backup files between formats. Available as a standalone CLI with a Flutter app planned.
 
 **[Download latest release](https://github.com/rafliardana/manga_backup_converter/releases)**
