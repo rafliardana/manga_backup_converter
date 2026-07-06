@@ -5,7 +5,7 @@
 
 Convert manga backup files between formats. Available as a standalone CLI with a Flutter app planned.
 
-**[Download latest release](https://github.com/getBoolean/manga_backup_converter/releases/latest)**
+**[Download latest release](https://github.com/rafliardana/manga_backup_converter/releases)**
 
 ## Supported Formats
 
