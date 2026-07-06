@@ -1,11 +1,13 @@
 # Manga Backup Converter <!-- omit in toc -->
 
-[![latest release](https://img.shields.io/github/release/getBoolean/manga_backup_converter.svg?maxAge=3600&label=download)](https://github.com/getBoolean/manga_backup_converter/releases)
-[![coverage](https://img.shields.io/codecov/c/github/getBoolean/manga_backup_converter)](https://app.codecov.io/gh/getBoolean/manga_backup_converter)
+[![latest release](https://img.shields.io/github/release/rafliardana/manga_backup_converter.svg?maxAge=3600&label=download)](https://github.com/rafliardana/manga_backup_converter/releases)
+[![coverage](https://img.shields.io/codecov/c/github/rafliardana/manga_backup_converter)](https://app.codecov.io/gh/rafliardana/manga_backup_converter)
 
 Convert manga backup files between formats. Available as a standalone CLI with a Flutter app planned.
 
 **[Download latest release](https://github.com/rafliardana/manga_backup_converter/releases)**
+
+> **Note for Windows Users:** The standalone `.exe` requires `sqlite3.dll` to be present in the same folder or in your system PATH. Alternatively, you can run the tool directly using `dart run packages/mangabackupconverter_cli/bin/mangabackupconverter_cli.dart`.
 
 ## Supported Formats
 
@@ -27,7 +29,7 @@ Convert manga backup files between formats. Available as a standalone CLI with a
 | Tachimanga | :white_check_mark: | :arrow_right: Tachi | :x: | :x: |
 | Mangayomi | :white_check_mark: | — | :x: | :x: |
 
-- **Direct conversion** preserves data 1:1 between Tachi and Tachimanga without needing plugins.
+- **Direct conversion** preserves data 1:1 between Tachi and Tachimanga without needing plugins. *(Fixed: History & Tracking mapping bugs for Tachimanga -> Tachi conversion have been patched in this fork!)*
 - **Plugin migration** uses Aidoku source extensions to search and match manga, then builds a backup in the target format. Currently only Aidoku is supported as a target.
 - **Merge** combines two Aidoku backups into one, deduplicating manga entries.
 
