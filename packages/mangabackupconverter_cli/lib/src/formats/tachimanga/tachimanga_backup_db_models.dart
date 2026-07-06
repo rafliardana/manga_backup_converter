@@ -211,8 +211,14 @@ class TachimangaBackupHistory
 
   @override
   TachiBackupHistory toType(TachimangaBackupDb db) {
-    final TachimangaBackupManga manga = db.mangaTable.firstWhere((TachimangaBackupManga manga) => manga.id == mangaId);
-    return TachiBackupHistory(url: manga.realUrl ?? manga.url, lastRead: lastChapterId, readDuration: lastReadAt);
+    final TachimangaBackupChapter? chapter = db.chapterTable
+        .where((TachimangaBackupChapter c) => c.id == lastChapterId)
+        .firstOrNull;
+    return TachiBackupHistory(
+      url: chapter?.url ?? '', 
+      lastRead: lastReadAt, 
+      readDuration: 0,
+    );
   }
 
   static const TachimangaBackupHistory Function(Map<String, dynamic> map) fromMap =
@@ -509,7 +515,7 @@ class TachimangaBackupTrackRecord
     return TachiBackupTracking(
       syncId: syncId,
       libraryId: libraryId ?? -1,
-      mediaIdInt: mangaId,
+      mediaIdInt: remoteId,
       trackingUrl: remoteUrl,
       title: title,
       lastChapterRead: lastChapterRead,
@@ -518,7 +524,7 @@ class TachimangaBackupTrackRecord
       status: status,
       startedReadingDate: startDate,
       finishedReadingDate: finishDate,
-      mediaId: mangaId,
+      mediaId: remoteId,
     );
   }
 
