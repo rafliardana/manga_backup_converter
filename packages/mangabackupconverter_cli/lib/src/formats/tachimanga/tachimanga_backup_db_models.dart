@@ -282,11 +282,11 @@ class TachimangaBackupManga
       thumbnailUrl: thumbnailUrl ?? '',
       source: source,
       updateStrategy: TachiUpdateStrategyMapper.fromValue(int.tryParse(updateStrategy) ?? updateStrategy),
-      dateAdded: DateTime.now().millisecondsSinceEpoch,
+      dateAdded: inLibraryAt > 0 ? inLibraryAt : DateTime.now().millisecondsSinceEpoch,
       viewer: 1,
       viewerFlags: 1,
       chapterFlags: 1,
-      favorite: false,
+      favorite: inLibrary,
       chapters: db.chapterTable
           .where((TachimangaBackupChapter c) => c.manga == id)
           .map((TachimangaBackupChapter c) => c.toType(db))

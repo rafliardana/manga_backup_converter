@@ -1,3 +1,4 @@
+import 'dart:convert';
 import 'package:dart_mappable/dart_mappable.dart';
 import 'package:mangabackupconverter_cli/src/proto/schema_mihon.proto/proto/schema_mihon.pb.dart' as mihon;
 import 'package:mangabackupconverter_cli/src/proto/schema_sy.proto/proto/schema_sy.pb.dart' as sy;
@@ -29,7 +30,7 @@ class TachiBackupPreference with TachiBackupPreferenceMappable {
   static const TachiBackupPreference Function(String json) fromJson = TachiBackupPreferenceMapper.fromJson;
 }
 
-@MappableClass()
+@MappableClass(includeCustomMappers: [TachiBackupPreferenceValueCustomMapper()])
 class TachiBackupPreferenceValue with TachiBackupPreferenceValueMappable {
   final String type;
   final List<int> truevalue;
@@ -47,4 +48,29 @@ class TachiBackupPreferenceValue with TachiBackupPreferenceValueMappable {
   static const TachiBackupPreferenceValue Function(Map<String, dynamic> map) fromMap =
       TachiBackupPreferenceValueMapper.fromMap;
   static const TachiBackupPreferenceValue Function(String json) fromJson = TachiBackupPreferenceValueMapper.fromJson;
+}
+
+class TachiBackupPreferenceValueCustomMapper extends SimpleMapper<TachiBackupPreferenceValue> {
+  const TachiBackupPreferenceValueCustomMapper();
+
+  @override
+  TachiBackupPreferenceValue decode(dynamic value) {
+    final Map<String, dynamic> map = value as Map<String, dynamic>;
+    final String type = map['type'] as String;
+    final dynamic truevalueDynamic = map['truevalue'];
+    List<int> truevalue;
+    if (truevalueDynamic is String) {
+      truevalue = base64Decode(truevalueDynamic);
+    } else if (truevalueDynamic is List) {
+      truevalue = truevalueDynamic.cast<int>();
+    } else {
+      truevalue = <int>[];
+    }
+    return TachiBackupPreferenceValue(type: type, truevalue: truevalue);
+  }
+
+  @override
+  dynamic encode(TachiBackupPreferenceValue self) {
+    return <String, dynamic>{'type': self.type, 'truevalue': base64Encode(self.truevalue)};
+  }
 }
